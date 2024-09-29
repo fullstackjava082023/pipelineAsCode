@@ -13,6 +13,12 @@ pipeline {
                 sh 'python3 main.py > output.txt'  
             }
         }
+
+         stage('print hello') {
+            steps {
+               echo 'hello new commit'  
+            }
+        }
       
         
     }
