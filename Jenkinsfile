@@ -9,6 +9,7 @@ pipeline {
         stage('Git checkout') {
             
             steps {
+                 cleanWs() 
                 git branch: 'main', url: 'https://github.com/fullstackjava082023/Jenkins1HW.git'   
             }
         }
