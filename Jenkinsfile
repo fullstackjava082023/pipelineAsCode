@@ -9,9 +9,18 @@ pipeline {
             }
         }
          stage('Run Python Code') {
-            steps {
-                sh 'python3 main.py > output.txt'  
+             agent {
+                docker {
+                    image 'python:3.12-slim' // Using the official Python Docker image
+                    args '-u root'
+                }
             }
+            steps {
+                sh 'python main.py >> output.txt' 
+                // Assuming the file exists in the workspace
+                sh 'cat output.txt'                
+            }
+
         }
 
          stage('print hello') {
