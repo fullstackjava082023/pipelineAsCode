@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    
+    tools {
+        // Specify the Docker installation name as configured in Jenkins
+        dockerTool 'docker'
+    }
     
     stages {
         stage('Git checkout') {
