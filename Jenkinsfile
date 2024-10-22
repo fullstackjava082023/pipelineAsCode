@@ -1,9 +1,15 @@
 pipeline {
-    agent any
-    // tools {
-    //     // Specify the Docker installation name as configured in Jenkins
-    //     dockerTool 'docker'
-    // }
+     agent {
+                kubernetes {
+                    // defaultContainer 'jnlp'
+                    containerTemplate {
+                        name 'python'
+                        image 'python:3.12-slim'
+                        ttyEnabled true
+                        command 'cat'
+                    }
+                }
+            }
     
     stages {
         stage('Git checkout') {
@@ -15,17 +21,7 @@ pipeline {
         }
 
         stage('Run Python Code') {
-            agent {
-                kubernetes {
-                    // defaultContainer 'jnlp'
-                    containerTemplate {
-                        name 'python'
-                        image 'python:3.12-slim'
-                        ttyEnabled true
-                        command 'cat'
-                    }
-                }
-            }
+          
             steps {
                 sh 'python main.py >> output.txt' 
                 // Assuming the file exists in the workspace
