@@ -14,7 +14,7 @@ spec:
     tty: true
   - name: jnlp
     image: jenkins/inbound-agent:latest
-    args: ['$(JENKINS_SECRET)', '$(JENKINS_NAME)']
+    args: ['${JENKINS_SECRET}', '${JENKINS_NAME}']
     env:
     - name: JENKINS_URL
       value: "${JENKINS_URL}"
