@@ -1,42 +1,39 @@
 pipeline {
-    agent {
-        kubernetes {
-            label 'python-agent'
-            yaml """
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: python
-    image: python:3.12-slim
-    command:
-    - cat
-    tty: true
-  - name: jnlp
-    image: jenkins/inbound-agent:latest
-    args: ['${JENKINS_SECRET}', '${JENKINS_NAME}']
-    env:
-    - name: JENKINS_URL
-      value: "${JENKINS_URL}"
-"""
-        }
+    agent any
+    tools {
+        // Specify the Docker installation name as configured in Jenkins
+        dockerTool 'docker'
     }
-
+    
     stages {
-        stage('Run Python Code') {
+        stage('Git checkout') {
+            
             steps {
-                container('python') {
-                    sh 'python --version'
-                    sh 'python main.py >> output.txt'
-                    sh 'cat output.txt'
+                 cleanWs() 
+                git branch: 'main', url: 'https://github.com/fullstackjava082023/Jenkins1HW.git'   
+            }
+        }
+         stage('Run Python Code') {
+             agent {
+                docker {
+                    image 'python:3.12-slim' // Using the official Python Docker image
+                    args '-u root'
                 }
             }
+            steps {
+                sh 'python main.py >> output.txt' 
+                // Assuming the file exists in the workspace
+                sh 'cat output.txt'                
+            }
+
         }
 
-        stage('Print hello') {
+         stage('print hello') {
             steps {
-                echo 'hello new commit'
+               echo 'hello new commit'  
             }
         }
+      
+        
     }
 }
