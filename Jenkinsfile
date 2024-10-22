@@ -11,6 +11,9 @@ pipeline {
                 }
             }
     
+    tools {
+        dockerTool 'docker'
+    }
     stages {
         stage('Git checkout') {
             
