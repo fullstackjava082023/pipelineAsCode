@@ -13,11 +13,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/fullstackjava082023/Jenkins1HW.git'   
             }
         }
-         stage('Run Python Code') {
-             agent {
-                docker {
-                    image 'python:3.12-slim' // Using the official Python Docker image
-                    args '-u root'
+
+        stage('Run Python Code') {
+            agent {
+                kubernetes {
+                    containerTemplate {
+                        name 'python'
+                        image 'python:3.12-slim'
+                        ttyEnabled true
+                        command 'cat'
+                    }
                 }
             }
             steps {
@@ -28,7 +33,7 @@ pipeline {
 
         }
 
-         stage('print hello') {
+        stage('Print hello') {
             steps {
                echo 'hello new commit'  
             }
