@@ -11,9 +11,7 @@ pipeline {
                 }
             }
     
-    tools {
-        dockerTool 'docker'
-    }
+   
     stages {
         stage('Git checkout') {
             
@@ -29,8 +27,7 @@ pipeline {
                 sh 'python main.py >> output.txt' 
                 // Assuming the file exists in the workspace
                 sh 'cat output.txt'   
-                sh 'docker --version'             
-                sh 'kubectl get pods'
+              
             }
 
         }
