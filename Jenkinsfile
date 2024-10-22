@@ -6,7 +6,7 @@ pipeline {
                         name 'python'
                         image 'python:3.12-slim'
                         ttyEnabled true
-                        command 'cat'
+                        // command 'cat'
                     }
                 }
             }
