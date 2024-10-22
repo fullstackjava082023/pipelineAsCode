@@ -17,7 +17,7 @@ pipeline {
         stage('Run Python Code') {
             agent {
                 kubernetes {
-                    defaultContainer 'jnlp'
+                    // defaultContainer 'jnlp'
                     containerTemplate {
                         name 'python'
                         image 'python:3.12-slim'
