@@ -5,7 +5,7 @@ pipeline {
                     containerTemplate {
                         name 'python'
                         image 'python:3.12-slim'
-                        ttyEnabled true
+                        // ttyEnabled true
                         // command 'cat'
                     }
                 }
